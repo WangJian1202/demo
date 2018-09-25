@@ -1,5 +1,6 @@
 package com.example.demo.stream;
 
+import com.example.demo.model.Person;
 import com.sun.deploy.util.StringUtils;
 import org.junit.jupiter.api.Test;
 
@@ -7,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.*;
 
 /**
  * @Author: WangJian
@@ -74,11 +77,41 @@ public class demo03 {
         List<String> collect = Stream.of("abc", "def", "ghi").collect(Collectors.toList());
         Set<String> collect1 = Stream.of("abc", "def", "ghi").collect(Collectors.toSet());
         LinkedList<String> collect2 = Stream.of("abc", "def", "ghi").collect(Collectors.toCollection(LinkedList::new));
+//        收集称map类型
+        Map<String, String> map = Stream.of("abc", "def", "ghi").collect(Collectors.toMap(v -> v, v -> v.toUpperCase()));
+        String abc = map.get("abc");
+        System.out.println(abc);
+//        统计总数，平均值，最值，合计等
+        Long count = Stream.of(1, 2, 4, -1, 4, 9).collect(counting());
+        System.out.println(count);
+        Double average= Stream.of(1, 2, 3, 4,9, 8, 7 - 9).collect(Collectors.averagingInt(v -> v));
+        System.out.println(average);
+        Optional<Integer> optional = Stream.of(1, 2, 4, 6, 8, 9, 12).collect(Collectors.maxBy(Integer::compare));
+        System.out.println(optional.get());
+        Optional<Integer> optional01 = Stream.of(1, 2, 4, 6, 8, 9, 12).collect(Collectors.minBy(Integer::compare));
+        System.out.println(optional01.get());
+        Integer sum = Stream.of(1, 2, 5, 7, 9).collect(Collectors.summingInt(v -> v));
+        System.out.println(sum);
     }
-
+//    分组分区
     @Test
     public void test07(){
-
+        List<Person> list = new ArrayList();
+        for (int i = 0; i < 3; i++) {
+            list.add(new Person("李雷", i));
+            list.add(new Person("小明", i));
+        }
+//        groupingBy 根据指定属性分组
+        Map<String, List<Person>> collect = list.stream().collect(groupingBy(Person::getName));
+        System.out.println(collect);
+//        分组后value取集合的size
+        Map<String, Long> collect1  = list.stream().collect(groupingBy(Person::getName, counting()));
+        System.out.println(collect1);
+//        分组后，value取分组后最大的person
+        Map<String, Optional<Person>> collect2 = list.stream().collect(groupingBy(Person::getName, maxBy(Comparator.comparing(Person::getType))));
+        collect2.forEach((k,v)->System.out.println(k+"-"+v));
+        Map<String, Set<Integer>> collect3 = list.stream().collect(groupingBy(Person::getName, mapping(Person::getType, toSet())));
+        collect3.forEach((k,v)->System.out.println(k+"-"+v));
     }
 
 
