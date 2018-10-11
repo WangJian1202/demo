@@ -32,7 +32,7 @@ public class demo03 {
         System.out.println(b1);
         //若使用同一个stream会那报错，因为match是结束操作
         Stream<Integer> stream001 = Stream.of(1, 2, 3, 4, 0, -1, -20, -2, -6);
-        boolean b2 = stream001.anyMatch(x -> x > 1);
+        boolean b2 = stream001.anyMatch(x -> x > 100);
         System.out.println(b2);
     }
     /*
@@ -44,7 +44,7 @@ public class demo03 {
     public void test03() {
         Stream<Integer> stream = Stream.of(1, -2, -3, -4, 0, -1, -20, -2, -6);
 //        System.out.println(stream.findFirst().orElse(0));
-        System.out.println(stream.findAny().filter(x->x<=0).orElse(10));
+//        System.out.println(stream.findAny().filter(x->x<=2).orElse(10));
 //        System.out.println(stream.findFirst().filter(x->x>2).orElse(10));
     }
 //    统计
@@ -64,7 +64,7 @@ public class demo03 {
 //        System.out.println(stream.reduce("",String::concat));
         Stream<Integer> integerStream = Stream.of(1, 2, 3, 4, 10, 6);
         System.out.println(integerStream.reduce(000,Integer::compare));
-        int compare = Integer.compare(5, 6);
+        int compare = Integer.compare(6, 5);
         System.out.println(compare);
     }
     /*
@@ -93,7 +93,7 @@ public class demo03 {
         Integer sum = Stream.of(1, 2, 5, 7, 9).collect(Collectors.summingInt(v -> v));
         System.out.println(sum);
     }
-//    分组分区
+//    分组分区 groupingBy 返回 map 类型
     @Test
     public void test07(){
         List<Person> list = new ArrayList();

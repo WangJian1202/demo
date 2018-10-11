@@ -37,6 +37,9 @@ public class demo01 {
         Optional<String> hadoop = Optional.ofNullable("Hadoop");
         String s = hadoop.get();
         System.out.println(s);
+//        Optional<String> empty = Optional.empty();
+//        String s1 = empty.get();
+//        System.out.println("s1="+s1);
     }
 //    orElse 如果创建的Optional值存在，返回此值，否则返回一个默认的值
     @Test
@@ -60,7 +63,12 @@ public class demo01 {
         Optional<String> myun = Optional.of("马云");
         System.out.println(myun.orElseThrow(CustomException::new));
         Optional<Object> empty = Optional.empty();
-        System.out.println(empty.orElseThrow(CustomException::new));
+        try{
+            System.out.println(empty.orElseThrow(CustomException::new));
+        }catch (CustomException e){
+            System.out.println(e.getMessage());
+        }
+
     }
 //    如果创建的Optional中的值满足filter中的条件，则返回包含该值得Optional对象，否则返回一个空的Optional对象
     @Test
