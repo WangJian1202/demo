@@ -11,4 +11,17 @@ public class Demo {
     public void test01(){
         System.out.println(Food.Coffee.BLACK_COFFEE);
     }
+
+    @Test
+    public void test02(){
+        int targetCode=10000;
+        CommonRetCodeEnum[] values = CommonRetCodeEnum.values();
+        for (CommonRetCodeEnum e:values) {
+            if (e.getErrorCode()==targetCode){
+                System.out.println(e.getErrorMsg());
+            }
+        }
+        CommonRetCodeEnum.BANK_DISABLE.getErrorMsg();
+    }
+
 }

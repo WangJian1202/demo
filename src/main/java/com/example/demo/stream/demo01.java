@@ -34,4 +34,5 @@ public class demo01 {
 //        生成无限多项的随机数
         Stream.generate(() -> Math.random());
     }
+
 }
